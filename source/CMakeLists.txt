@@ -69,7 +69,8 @@ add_custom_command(OUTPUT ${CORE_TABLES_BODY_INC_FILE} ${CORE_TABLES_HEADER_INC_
 	    ${EI_ns_vkspreflect}
 	    ${EI_tosa_001000_1}
 	    ${EI_arm_motion_engine_100}
-    COMMENT "Generate grammar tables")
+    COMMENT "Generate grammar tables"
+    VERBATIM)
 add_custom_target(spirv-tools-tables DEPENDS ${CORE_TABLES_BODY_INC_FILE} ${CORE_TABLES_HEADER_INC_FILE})
 
 macro(spvtools_vimsyntax CONFIG_VERSION CLVERSION)
@@ -96,7 +97,8 @@ macro(spvtools_extinst_lang_headers NAME GRAMMAR_FILE)
       --extinst-grammar=${GRAMMAR_FILE}
       --extinst-output-path=${OUT_H}
     DEPENDS ${LANG_HEADER_PROCESSING_SCRIPT} ${GRAMMAR_FILE}
-    COMMENT "Generate language specific header for ${NAME}.")
+    COMMENT "Generate language specific header for ${NAME}."
+    VERBATIM)
   add_custom_target(spirv-tools-header-${NAME} DEPENDS ${OUT_H})
   set_property(TARGET spirv-tools-header-${NAME} PROPERTY FOLDER "SPIRV-Tools build")
   list(APPEND EXTINST_CPP_DEPENDS spirv-tools-header-${NAME})
@@ -118,7 +120,8 @@ add_custom_command(OUTPUT ${GENERATOR_INC_FILE}
     --xml=${SPIRV_XML_REGISTRY_FILE}
     --generator-output=${GENERATOR_INC_FILE}
   DEPENDS ${XML_REGISTRY_PROCESSING_SCRIPT} ${SPIRV_XML_REGISTRY_FILE}
-  COMMENT "Generate tables based on the SPIR-V XML registry.")
+  COMMENT "Generate tables based on the SPIR-V XML registry."
+  VERBATIM)
 list(APPEND OPCODE_CPP_DEPENDS ${GENERATOR_INC_FILE})
 
 # The following .cpp files include the above generated .inc files.
@@ -148,7 +151,8 @@ add_custom_command(OUTPUT ${SPIRV_TOOLS_BUILD_VERSION_INC}
            ${SPIRV_TOOLS_CHANGES_FILE} ${SPIRV_TOOLS_BUILD_VERSION_INC}
    DEPENDS ${SPIRV_TOOLS_BUILD_VERSION_INC_GENERATOR}
            ${SPIRV_TOOLS_CHANGES_FILE}
-   COMMENT "Update build-version.inc in the SPIRV-Tools build directory (if necessary).")
+   COMMENT "Update build-version.inc in the SPIRV-Tools build directory (if necessary)."
+   VERBATIM)
 # Convenience target for standalone generation of the build-version.inc file.
 # This is not required for any dependence chain.
 add_custom_target(spirv-tools-build-version
